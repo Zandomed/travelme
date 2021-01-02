@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:travelme/components/single_button_continue.dart';
 
 class FirstSignInPage extends StatelessWidget {
   static const String routeName = '/signIn';
@@ -10,33 +11,7 @@ class FirstSignInPage extends StatelessWidget {
   final TextStyle _inputStyle = TextStyle(
       color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold);
 
-  // final OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-  //     borderSide: BorderSide(color: Colors.white, width: 0.0),
-  //     borderRadius: BorderRadius.circular(15.0));
-
   FirstSignInPage({Key key}) : super(key: key);
-  // Widget _inputNameUser() {
-  //   return Container(
-  //     child: TextField(
-  //         keyboardType: TextInputType.name,
-  //         autocorrect: false,
-  //         textCapitalization: TextCapitalization.words,
-  //         decoration: InputDecoration(
-  //           hintStyle: TextStyle(fontStyle: FontStyle.italic),
-  //           hintText: 'ex. Miguel Mendoza',
-  //           contentPadding: EdgeInsets.all(10.0),
-  //           labelText: 'Name',
-  //           filled: true,
-  //           fillColor: Colors.black.withOpacity(0.1),
-  //           // border: outlineInputBorder,
-  //           // focusedBorder: outlineInputBorder,
-  //           // enabledBorder: outlineInputBorder,
-  //           // bor
-  //           floatingLabelBehavior: FloatingLabelBehavior.never,
-  //           prefixIcon: Icon(Icons.person, color: Colors.black54),
-  //         )),
-  //   );
-  // }
 
   Widget _textLogin() {
     return Padding(
@@ -124,31 +99,9 @@ class FirstSignInPage extends StatelessWidget {
         Expanded(
           child: SizedBox(),
         ),
-        Hero(
-            tag: 'button',
-            child: Material(
-              color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                // borderRadius: BorderRadius.circular(10.0),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  decoration:
-                      BoxDecoration(color: Colors.black.withOpacity(0.5)),
-                  child: Center(
-                      child: Icon(
-                    Icons.arrow_right,
-                    size: 40.0,
-                    color: Colors.white,
-                  )),
-                ),
-              ),
-            ))
+        SingleButtonContinue(
+          onPress: () {},
+        )
       ],
     );
   }
