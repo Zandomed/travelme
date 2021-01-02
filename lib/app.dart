@@ -9,6 +9,8 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: MainRouter.getInitialRoute(),
       onGenerateRoute: MainRouter.getOnGenerateRoute(),
+      theme: ThemeData(
+          primaryColor: Colors.orange, accentColor: Colors.orangeAccent[900]),
     );
   }
 }

@@ -1,17 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelme/components/single_button_continue.dart';
+import 'package:travelme/pages/home.page.dart';
 
-class FirstSignInPage extends StatelessWidget {
+class FirstSignInPage extends StatefulWidget {
   static const String routeName = '/signIn';
+
+  FirstSignInPage({Key key}) : super(key: key);
+
+  @override
+  _FirstSignInPageState createState() => _FirstSignInPageState();
+}
+
+class _FirstSignInPageState extends State<FirstSignInPage> {
   final EdgeInsets _paddingInputs = EdgeInsets.only(
     left: 70,
   );
-
   final TextStyle _inputStyle = TextStyle(
       color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold);
 
-  FirstSignInPage({Key key}) : super(key: key);
+  String _inputValueName = '';
+  String _inputValueEmail = '';
+  bool _isLoadingButtonSignIn = false;
+
+  Future<void> _signIn(BuildContext context) async {
+    setState(() {
+      _isLoadingButtonSignIn = true;
+    });
+
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+    _prefs.setString('name', _inputValueName);
+    _prefs.setString('email', _inputValueEmail);
+
+    setState(() {
+      _isLoadingButtonSignIn = false;
+    });
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        HomePage.routeName, (Route<dynamic> route) => false);
+  }
 
   Widget _textLogin() {
     return Padding(
@@ -60,7 +89,7 @@ class FirstSignInPage extends StatelessWidget {
     return Padding(
       padding: _paddingInputs,
       child: Container(
-        height: 60,
+        // height: 60,
         width: MediaQuery.of(context).size.width,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
@@ -68,7 +97,9 @@ class FirstSignInPage extends StatelessWidget {
             keyboardType: TextInputType.name,
             autocorrect: true,
             style: _inputStyle,
+            textCapitalization: TextCapitalization.words,
             decoration: _getInputDecoration('Name'),
+            onChanged: (String value) => _inputValueName = value,
           ),
         ),
       ),
@@ -79,15 +110,17 @@ class FirstSignInPage extends StatelessWidget {
     return Padding(
       padding: _paddingInputs,
       child: Container(
-        height: 60,
+        // height: 60,
         width: MediaQuery.of(context).size.width,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              autocorrect: false,
-              style: _inputStyle,
-              decoration: _getInputDecoration('Email')),
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            style: _inputStyle,
+            decoration: _getInputDecoration('Email'),
+            onChanged: (String value) => _inputValueEmail = value,
+          ),
         ),
       ),
     );
@@ -100,7 +133,8 @@ class FirstSignInPage extends StatelessWidget {
           child: SizedBox(),
         ),
         SingleButtonContinue(
-          onPress: () {},
+          isLoading: _isLoadingButtonSignIn,
+          onPress: () => _signIn(context),
         )
       ],
     );
@@ -123,6 +157,8 @@ class FirstSignInPage extends StatelessWidget {
   InputDecoration _getInputDecoration(String name) {
     return InputDecoration(
       border: InputBorder.none,
+      // errorText: 'hole',
+      // errorStyle: TextStyle(fontWeight: FontWeight.w800),
       filled: true,
       fillColor: Colors.black.withOpacity(0.3),
       labelText: name,
