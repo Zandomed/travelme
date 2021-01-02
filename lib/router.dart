@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travelme/pages/first_sign_in.page.dart';
+import 'package:travelme/pages/home.page.dart';
 import 'package:travelme/pages/welcome.page.dart';
 
 class MainRouter {
@@ -32,6 +33,9 @@ class MainRouter {
         case FirstSignInPage.routeName:
           return CustomPageRoute(
               builder: (BuildContext context) => FirstSignInPage());
+        case HomePage.routeName:
+          return CustomPageRoute(
+              builder: (BuildContext context) => HomePage());
         default:
           return null;
       }
