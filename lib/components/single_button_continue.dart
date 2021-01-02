@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class SingleButtonContinue extends StatelessWidget {
   final dynamic Function() onPress;
+  final bool isLoading;
 
-  SingleButtonContinue({Key key, this.onPress}) : super(key: key);
+  SingleButtonContinue({Key key, this.onPress, this.isLoading = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +24,22 @@ class SingleButtonContinue extends StatelessWidget {
               width: 50.0,
               decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
               child: Center(
-                  child: Icon(
-                Icons.arrow_right,
-                size: 40.0,
-                color: Colors.white,
-              )),
+                  child: isLoading
+                      ? Container(
+                          width: 30.0,
+                          height: 30.0,
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.orange),
+                            strokeWidth: 5.0,
+                          ),
+                        )
+                      : Icon(
+                          Icons.arrow_right,
+                          size: 40.0,
+                          color: Colors.white,
+                        )),
             ),
           ),
         ));
