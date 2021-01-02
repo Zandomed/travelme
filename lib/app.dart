@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelme/router.dart';
 
 class App extends StatelessWidget {
   @override
@@ -6,16 +7,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'TravelMe',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('TravelMe'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      ),
+      initialRoute: MainRouter.getInitialRoute(),
+      onGenerateRoute: MainRouter.getOnGenerateRoute(),
     );
   }
 }
